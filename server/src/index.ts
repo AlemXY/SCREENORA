@@ -12,6 +12,10 @@ import miListaRoutes from "./routes/miListaRoutes";
 
 const app = express();
 
+if (process.env.RENDER === "true") {
+  app.set("trust proxy", 1);
+}
+
 const port = Number(process.env.PORT) || 3000;
 const host = process.env.HOST || "0.0.0.0";
 
