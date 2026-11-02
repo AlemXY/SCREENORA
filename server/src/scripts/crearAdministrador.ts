@@ -27,8 +27,17 @@ const crearAdministrador = async (): Promise<void> => {
     throw new Error("La contraseña debe tener al menos 12 caracteres.");
   }
 
+  const nombreBaseDatos = process.env.MONGODB_DB_NAME;
+
+  if (nombreBaseDatos !== "screenora_pa3_desarrollo") {
+    throw new Error(
+      "Operación cancelada: debes seleccionar screenora_pa3_desarrollo.",
+    );
+  }
+
   await mongoose.connect(uri, {
     serverSelectionTimeoutMS: 10000,
+    dbName: nombreBaseDatos,
   });
 
   console.log("Conectado con MongoDB Atlas.");
