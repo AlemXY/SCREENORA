@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.DEV
   ? "http://localhost:3000"
-  : "https://screenora-backend.onrender.com";
+  : "https://screenora-api.onrender.com";
 
 const API_MI_LISTA = `${API_BASE}/api/mi-lista`;
 

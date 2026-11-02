@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.DEV
   ? "http://localhost:3000"
-  : "https://screenora-backend.onrender.com";
+  : "https://screenora-api.onrender.com";
 
 // ==========================================
 // TIPOS

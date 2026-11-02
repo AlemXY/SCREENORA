@@ -98,7 +98,7 @@ const modoDesarrollo = import.meta.env.DEV;
 
 const API_BASE = modoDesarrollo
   ? "http://localhost:3000"
-  : "https://screenora-backend.onrender.com";
+  : "https://screenora-api.onrender.com";
 
 const API_CONTENIDOS = `${API_BASE}/api/contenidos`;
 
