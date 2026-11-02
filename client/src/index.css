@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-screenora-bg: #00031c;
+  --color-screenora-purple: #6a62f2;
+  --color-screenora-violet: #8c5cf9;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}

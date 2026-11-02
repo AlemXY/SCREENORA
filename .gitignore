@@ -1,0 +1,26 @@
+# Dependencias
+**/node_modules/
+
+# Archivos compilados
+**/dist/
+**/coverage/
+
+# Variables de entorno privadas
+**/.env
+**/.env.*
+!**/.env.example
+
+# Archivos de despliegue
+**/.netlify/
+
+# Registros temporales
+*.log
+npm-debug.log*
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Configuraciones locales
+.vscode/
+.idea/
