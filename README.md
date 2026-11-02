@@ -131,7 +131,7 @@ Para ejecutar SCREENORA localmente se necesita:
 
 ### Clonar el repositorio
 
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/AlemXY/SCREENORA.git
 
 cd SCREENORA
 
@@ -326,23 +326,29 @@ se genera en la carpeta dist.
 
 ## 13. Despliegue
 
-SCREENORA utiliza Netlify para el frontend
-y Render para ejecutar el backend Express.
+SCREENORA se encuentra desplegado mediante Cloudflare Pages,
+Render y MongoDB Atlas.
 
-Frontend original:
-https://screenora.netlify.app
+### Frontend
 
-Backend original:
-https://screenora-backend.onrender.com
+https://screenora-31j.pages.dev
 
-La versión actualizada con las funcionalidades
-del PA3 se publicará después de completar su despliegue.
+### Backend
+
+https://screenora-api.onrender.com
+
+### Estado de MongoDB
+
+https://screenora-api.onrender.com/estado-mongodb
+
+El frontend consume una API REST desarrollada con Node.js
+y Express, conectada a MongoDB Atlas mediante Mongoose.
 
 ## 14. Repositorio de GitHub
 
 Repositorio público del proyecto:
 
-PENDIENTE_DE_AGREGAR_ENLACE_DE_GITHUB
+https://github.com/AlemXY/SCREENORA
 
 ## 15. Evidencias
 
