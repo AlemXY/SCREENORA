@@ -23,6 +23,7 @@ const origenesPermitidos = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "https://screenora.netlify.app",
+  "https://screenora-31j.pages.dev",
 ];
 
 app.use(
