@@ -1,28 +1,24 @@
 # SCREENORA
 
-## 1. Descripción del proyecto
+Aplicación web Full-Stack para explorar y gestionar películas y series. Esta rama contiene la implementación del **Producto Académico 4 (PA4)**, con páginas de Directores y Catálogo, una relación maestro-detalle, autenticación y administración de contenidos.
 
-SCREENORA es una aplicación web Full-Stack para la exploración
-y gestión de películas y series.
+## 1. Información del proyecto
 
-Cuenta con un catálogo interactivo, autenticación de usuarios,
-administración de contenidos y listas personales.
+- **Proyecto:** SCREENORA
+- **Evaluación:** Producto Académico N.º 4 (PA4)
+- **Rama de desarrollo:** `pa4`
+- **Plantilla de referencia:** [StreamVid — ThemeForest](https://themeforest.net/item/streamvid-streaming-video-wordpress-theme/46440024)
+- **Frontend publicado:** [https://screenora-pa4.netlify.app](https://screenora-pa4.netlify.app)
+- **Backend publicado:** [https://screenora-pa4-api.onrender.com](https://screenora-pa4-api.onrender.com)
+- **Repositorio:** [https://github.com/AlemXY/SCREENORA](https://github.com/AlemXY/SCREENORA)
 
-El proyecto integra React y TypeScript en el frontend,
-Node.js y Express en el backend, y MongoDB Atlas como
-base de datos, utilizando Mongoose.
+Para esta entrega se utiliza MongoDB Atlas y Render, conforme a la autorización del docente para continuar con la infraestructura del proyecto.
 
-## 2. Objetivo
+## 2. Descripción y objetivo
 
-Desarrollar una aplicación web Full-Stack que permita:
+SCREENORA permite explorar películas y series, consultar directores, navegar por categorías y administrar contenidos. También incorpora registro e inicio de sesión de usuarios, autenticación de administradores y listas personales.
 
-- Registrar usuarios mediante formularios.
-- Almacenar contraseñas de forma segura utilizando bcrypt.
-- Iniciar sesión y generar tokens JWT.
-- Proteger rutas mediante autenticación.
-- Gestionar registros mediante operaciones CRUD.
-- Asociar listas personales a usuarios autenticados.
-- Integrar frontend, backend y base de datos mediante una API REST.
+El objetivo es integrar una interfaz responsiva desarrollada con React y Tailwind CSS con una API REST construida en Node.js y Express, persistiendo la información en MongoDB Atlas mediante Mongoose.
 
 ## 3. Tecnologías utilizadas
 
@@ -33,6 +29,7 @@ Desarrollar una aplicación web Full-Stack que permita:
 - Vite
 - Tailwind CSS
 - TanStack React Query
+- React Router
 
 ### Backend
 
@@ -44,325 +41,361 @@ Desarrollar una aplicación web Full-Stack que permita:
 - JSON Web Token (JWT)
 - express-rate-limit
 
-### Base de datos
+### Base de datos y despliegue
 
 - MongoDB Atlas
-
-### Servicios de despliegue
-
-- Netlify
 - Render
-
-### Control de versiones
-
+- Netlify
 - Git y GitHub
 
-## 4. Estructura del proyecto
+## 4. Funcionalidades
 
-SCREENORA/
-├── client/
-│ ├── public/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── home/
-│ │ ├── layouts/
-│ │ └── services/
-│ └── package.json
-│
-├── server/
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── middlewares/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ ├── scripts/
-│ │ └── utils/
-│ ├── .env.example
-│ └── package.json
-│
-├── Evidencias/
-└── README.md
+### Inicio
 
-## 5. Funcionalidades principales
+- Banner principal con carrusel de contenidos y reproducción de tráilers.
+- Secciones de tendencias, estrenos y contenido destacado.
+- Acceso al catálogo y a la cuenta de usuario.
 
-### Catálogo
+### Directores
 
-- Visualización de películas y series.
-- Consulta de contenidos almacenados en MongoDB.
-- Interfaz adaptable a dispositivos móviles y computadoras.
-- Reproducción de tráileres y contenido audiovisual.
+- Consulta de directores almacenados en MongoDB.
+- Presentación de fotografía, nombre, obra relacionada y tipo de producción.
+- Diseño adaptable a diferentes tamaños de pantalla.
+
+### Catálogo maestro-detalle
+
+- Consulta de las categorías disponibles.
+- Selección de una categoría.
+- Consulta de las películas y series asociadas a la categoría seleccionada.
+- Visualización de póster, título, tipo, año y descripción.
 
 ### Autenticación de usuarios
 
-- Registro de nuevas cuentas.
-- Inicio de sesión mediante correo y contraseña.
-- Contraseñas protegidas con bcrypt.
-- Generación de tokens JWT.
-- Verificación de sesiones mediante rutas protegidas.
+- Registro mediante correo y contraseña.
+- Hash de contraseñas con bcryptjs.
+- Inicio de sesión y emisión de tokens JWT.
+- Verificación de sesión mediante endpoint protegido.
 
-### Administración
+### Administración de contenidos
 
 - Inicio de sesión administrativo.
-- Creación de películas y series.
-- Consulta del catálogo.
-- Actualización de contenidos.
-- Eliminación de contenidos.
-- Protección de operaciones mediante JWT y permisos.
+- Consulta de películas y series.
+- Registro, edición y eliminación de contenidos.
+- Protección de las operaciones de escritura mediante autenticación JWT de administrador.
 
 ### Mi lista
 
-- Agregar películas y series.
-- Consultar contenidos personales.
-- Marcar elementos como Pendiente o Visto.
+- Agregar películas y series a una lista personal.
+- Consultar los elementos guardados.
+- Cambiar el estado entre Pendiente y Visto.
 - Eliminar elementos.
-- Restringir el acceso a los registros del usuario autenticado.
+- Asociar los registros al usuario autenticado.
 
-## 6. Requisitos previos
+### Navegación
 
-Para ejecutar SCREENORA localmente se necesita:
+- Rutas para Inicio, Directores y Catálogo.
+- Página 404 para rutas no encontradas.
+- Navegación adaptable a dispositivos móviles.
 
-- Node.js y npm instalados.
+## 5. Estructura del proyecto
+
+```text
+SCREENORA/
+├── client/
+│   ├── public/
+│   │   └── _redirects
+│   ├── src/
+│   │   ├── components/
+│   │   ├── config/
+│   │   ├── home/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── routes.tsx
+│   └── package.json
+│
+├── server/
+│   ├── public/
+│   │   └── imagenes/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── scripts/
+│   │   ├── utils/
+│   │   └── index.ts
+│   ├── .env.example
+│   └── package.json
+│
+└── README.md
+```
+
+## 6. Base de datos y relación maestro-detalle
+
+SCREENORA utiliza MongoDB Atlas. Mongoose define los esquemas y realiza las consultas a las colecciones.
+
+### Colección Directores
+
+Contiene seis registros y almacena:
+
+- `nombre`
+- `obraRelacionada`
+- `tipoProduccion`
+- `imagen`
+
+El campo `imagen` contiene la ruta del archivo servido por el backend.
+
+### Colección Categorías
+
+Contiene tres registros. Sus campos principales son:
+
+- `nombre`
+- `descripcion`
+- `foto`
+
+### Colección Productos
+
+Contiene doce registros: cuatro productos relacionados con cada categoría. Sus campos principales son:
+
+- `titulo`
+- `tipo`
+- `año`
+- `descripcion`
+- `imagen`
+- `categoria`
+
+El campo `categoria` almacena un ObjectId que referencia a un documento de la colección Categorías. El backend utiliza Mongoose `populate()` para recuperar el nombre de la categoría relacionada.
+
+### Otras colecciones
+
+La aplicación también utiliza las colecciones `contenidos`, `usuarios`, `administradores` y `listas_personales`.
+
+Las imágenes se sirven desde la carpeta `server/public/imagenes` mediante la ruta estática `/imagenes`.
+
+## 7. Requisitos previos
+
+Para ejecutar el proyecto localmente se necesita:
+
+- Node.js y npm.
+- Git.
 - Visual Studio Code u otro editor.
-- Acceso a una base de datos MongoDB Atlas.
-- Una cadena de conexión MongoDB válida.
-- Git para clonar el repositorio.
+- Una cuenta y un clúster de MongoDB Atlas.
+- Una cadena de conexión válida de MongoDB.
+- Una clave secreta para JWT de al menos 32 caracteres.
 
-## 7. Instalación del proyecto
+## 8. Instalación y ejecución local
 
-### Clonar el repositorio
+### Clonar la rama PA4
 
-git clone https://github.com/AlemXY/SCREENORA.git
-
+```bash
+git clone --branch pa4 --single-branch https://github.com/AlemXY/SCREENORA.git
 cd SCREENORA
+```
 
-### Instalar el backend
+### Configurar y ejecutar el backend
 
+Desde la raíz del proyecto:
+
+```bash
 cd server
-
 npm install
+```
 
-### Configurar variables de entorno
+Crear el archivo local `.env` a partir de `.env.example`.
 
-Dentro de server/ existe un archivo llamado .env.example.
+En PowerShell:
 
-Crear una copia con el nombre .env:
-
-PowerShell:
-
+```powershell
 Copy-Item .env.example .env
+```
 
-Editar el archivo .env y configurar:
+Configurar las variables de entorno en `server/.env`:
 
+```env
 MONGODB_URI=TU_CADENA_DE_CONEXION
-MONGODB_DB_NAME=TU_BASE_DE_DATOS
-JWT_SECRET=TU_CLAVE_SECRETA_SEGURA
+MONGODB_DB_NAME=screenora_pa3_desarrollo
+JWT_SECRET=TU_CLAVE_SECRETA_ALEATORIA_DE_32_CARACTERES_O_MAS
 PORT=3000
 HOST=0.0.0.0
 NODE_ENV=development
+```
 
-La clave JWT_SECRET debe ser aleatoria y contener
-al menos 32 caracteres.
+La URI y la clave son valores privados. No deben publicarse ni compartirse. El archivo `.env` debe permanecer fuera del control de versiones.
 
-Nunca publicar el archivo .env en GitHub.
+Iniciar el backend:
 
-### Ejecutar el backend
-
+```bash
 npm run dev
+```
 
-La API estará disponible normalmente en:
+La API local estará disponible en [http://localhost:3000](http://localhost:3000).
 
-http://localhost:3000
+### Configurar y ejecutar el frontend
 
-### Instalar el frontend
+Abrir una segunda terminal desde la raíz del repositorio:
 
-Desde la carpeta principal del proyecto:
-
+```bash
 cd client
-
 npm install
-
-### Ejecutar el frontend
-
 npm run dev
+```
 
-La aplicación estará disponible normalmente en:
+El frontend estará disponible normalmente en [http://localhost:5173](http://localhost:5173).
 
-http://localhost:5173
+Para trabajar localmente, deben permanecer activos el frontend y el backend en sus respectivas terminales. En modo desarrollo, el frontend utiliza `http://localhost:3000` como dirección de la API.
 
-Es necesario mantener el backend ejecutándose
-mientras se utiliza el frontend localmente.
+## 9. Datos iniciales
 
-## 8. Configuración de MongoDB Atlas
+El repositorio contiene scripts de inicialización en `server/src/scripts` para registrar directores, categorías y productos. Los scripts de categorías y productos deben ejecutarse en el orden previsto por el proyecto: inicializar categorías, actualizar sus nombres definitivos, inicializar directores e inicializar productos.
 
-1. Crear un proyecto en MongoDB Atlas.
-2. Crear o seleccionar un clúster.
-3. Configurar un usuario de base de datos.
-4. Asignar permisos readWrite sobre la base elegida.
-5. Autorizar el acceso de red desde el equipo de desarrollo.
-6. Obtener la cadena de conexión del clúster.
-7. Configurar MONGODB_URI dentro de server/.env.
-8. Configurar MONGODB_DB_NAME con el nombre de la base.
-9. Iniciar el backend para comprobar la conexión.
+Los scripts de inicialización comprueban que `MONGODB_DB_NAME` sea `screenora_pa3_desarrollo` antes de modificar datos. No los ejecutes sobre una base de datos con información que no quieras actualizar.
 
-La aplicación utiliza Mongoose para definir esquemas
-y realizar operaciones sobre MongoDB.
+La cuenta administrativa debe estar configurada previamente en la colección `administradores`. El proyecto incluye el script `server/src/scripts/crearAdministrador.ts` para la preparación de esa cuenta.
 
-Los datos de ejemplo no se incluyen automáticamente.
-Para gestionar el catálogo desde la interfaz se requiere
-una cuenta administrativa configurada previamente.
+## 10. Endpoints de la API
 
-## 9. Principales endpoints de la API
+La API responde mediante HTTP y JSON.
+
+### Directores
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/directores` | Lista los directores registrados. |
+
+### Categorías y productos
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/categorias` | Lista las categorías y su cantidad de productos. |
+| GET | `/api/productos?categoria=ID` | Lista los productos relacionados con el ObjectId de una categoría. |
 
 ### Autenticación
 
-POST /api/auth/register
-Registrar un usuario.
-
-POST /api/auth/login-usuario
-Iniciar sesión como usuario normal.
-
-GET /api/auth/me-usuario
-Verificar el JWT de un usuario normal.
-
-POST /api/auth/login
-Iniciar sesión como administrador.
-
-GET /api/auth/me
-Verificar el JWT de administrador.
+| Método | Endpoint | Descripción |
+|---|---|---|
+| POST | `/api/auth/register` | Registra un usuario. |
+| POST | `/api/auth/login-usuario` | Inicia sesión como usuario. |
+| GET | `/api/auth/me-usuario` | Verifica la sesión de usuario. Requiere JWT de usuario. |
+| POST | `/api/auth/login` | Inicia sesión como administrador. |
+| GET | `/api/auth/me` | Verifica la sesión de administrador. Requiere JWT de administrador. |
 
 ### Contenidos
 
-GET /api/contenidos
-Listar películas y series.
-
-GET /api/contenidos/:id
-Consultar un contenido por ID.
-
-POST /api/contenidos
-Crear un contenido. Requiere JWT de administrador.
-
-PUT /api/contenidos/:id
-Actualizar un contenido. Requiere JWT de administrador.
-
-DELETE /api/contenidos/:id
-Eliminar un contenido. Requiere JWT de administrador.
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/contenidos` | Lista películas y series. |
+| GET | `/api/contenidos/:id` | Consulta un contenido por su ID. |
+| POST | `/api/contenidos` | Registra un contenido. Requiere JWT de administrador. |
+| PUT | `/api/contenidos/:id` | Actualiza un contenido. Requiere JWT de administrador. |
+| DELETE | `/api/contenidos/:id` | Elimina un contenido. Requiere JWT de administrador. |
 
 ### Mi lista
 
-GET /api/mi-lista
-Consultar la lista personal.
-
-POST /api/mi-lista
-Agregar un contenido a la lista personal.
-
-PUT /api/mi-lista/:id
-Actualizar el estado de un elemento.
-
-DELETE /api/mi-lista/:id
-Eliminar un elemento de la lista personal.
-
 Todas las rutas de Mi lista requieren JWT de usuario.
 
-### Estado del servidor
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/mi-lista` | Consulta la lista personal. |
+| POST | `/api/mi-lista` | Agrega un elemento a la lista. |
+| PUT | `/api/mi-lista/:id` | Actualiza el estado de un elemento. |
+| DELETE | `/api/mi-lista/:id` | Elimina un elemento de la lista. |
 
-GET /estado-mongodb
-Consultar el estado de conexión con MongoDB.
+### Imágenes y estado del servidor
 
-## 10. Autenticación y seguridad
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/imagenes/:ruta` | Sirve imágenes almacenadas en `server/public/imagenes`. |
+| GET | `/estado-mongodb` | Informa si el backend tiene conexión activa con MongoDB. |
 
-SCREENORA implementa las siguientes medidas:
+Las solicitudes a endpoints protegidos deben incluir el encabezado:
 
-- Hashing de contraseñas mediante bcryptjs.
-- Autenticación basada en tokens JWT.
-- Tokens con tiempo de expiración.
-- Verificación de JWT mediante middleware.
-- Separación entre permisos de usuarios y administradores.
-- Protección de endpoints sensibles.
-- Validación de datos en el backend.
-- Limitación de intentos de autenticación.
-- Almacenamiento de secretos mediante variables de entorno.
-- Restricción de acceso a registros personales por usuario.
-
-Las solicitudes a rutas protegidas deben incluir:
-
+```http
 Authorization: Bearer TOKEN_JWT
+```
 
-## 11. Arquitectura de la aplicación
+## 11. Seguridad
 
-Frontend
-React + TypeScript
-|
-| HTTP / JSON
-v
-Backend
-Node.js + Express
-|
-| Mongoose
-v
-Base de datos
-MongoDB Atlas
-
-El backend está organizado en controladores, rutas,
-modelos, middlewares y funciones auxiliares.
+- Contraseñas almacenadas como hashes mediante bcryptjs.
+- Autenticación basada en JWT con expiración.
+- Middleware independiente para usuarios y administradores.
+- Protección de operaciones administrativas.
+- Validación de datos en el backend y en los modelos de Mongoose.
+- Limitación de intentos en endpoints de autenticación.
+- Variables de entorno para credenciales y secretos.
+- Verificación de que cada usuario acceda a sus propios registros de Mi lista.
 
 ## 12. Compilación
 
 ### Backend
 
+```bash
 cd server
-
+npm install
 npm run build
-
 npm start
+```
+
+El comando `npm run build` genera el JavaScript compilado en `server/dist`.
 
 ### Frontend
 
+```bash
 cd client
-
+npm install
 npm run build
+```
 
-La compilación de producción del frontend
-se genera en la carpeta dist.
+Vite genera la versión de producción en `client/dist`.
 
 ## 13. Despliegue
 
-SCREENORA se encuentra desplegado mediante Cloudflare Pages,
-Render y MongoDB Atlas.
+### Frontend — Netlify
 
-### Frontend
+- **URL:** [https://screenora-pa4.netlify.app](https://screenora-pa4.netlify.app)
+- **Repositorio:** `AlemXY/SCREENORA`
+- **Rama:** `pa4`
+- **Base directory:** `client`
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
 
-https://screenora-31j.pages.dev
+El archivo `client/public/_redirects` permite que las rutas de React Router funcionen al acceder directamente o recargar una página.
 
-### Backend
+### Backend — Render
 
-https://screenora-api.onrender.com
+- **URL:** [https://screenora-pa4-api.onrender.com](https://screenora-pa4-api.onrender.com)
+- **Repositorio:** `AlemXY/SCREENORA`
+- **Rama:** `pa4`
+- **Root directory:** `server`
+- **Build command:** `npm install --include=dev && npm run build`
+- **Start command:** `npm start`
+
+Variables de entorno configuradas en Render:
+
+- `MONGODB_URI`
+- `MONGODB_DB_NAME`
+- `JWT_SECRET`
+- `NODE_ENV=production`
+
+Render proporciona la variable `PORT` para el servicio desplegado.
 
 ### Estado de MongoDB
 
-https://screenora-api.onrender.com/estado-mongodb
+[https://screenora-pa4-api.onrender.com/estado-mongodb](https://screenora-pa4-api.onrender.com/estado-mongodb)
 
-El frontend consume una API REST desarrollada con Node.js
-y Express, conectada a MongoDB Atlas mediante Mongoose.
+## 14. Enlaces del proyecto
 
-## 14. Repositorio de GitHub
+1. **Servicio web:** [https://screenora-pa4-api.onrender.com](https://screenora-pa4-api.onrender.com)
+2. **Plantilla ThemeForest:** [StreamVid](https://themeforest.net/item/streamvid-streaming-video-wordpress-theme/46440024)
+3. **Sitio web:** [https://screenora-pa4.netlify.app](https://screenora-pa4.netlify.app)
+4. **Repositorio GitHub:** [https://github.com/AlemXY/SCREENORA](https://github.com/AlemXY/SCREENORA)
 
-Repositorio público del proyecto:
+## 15. Proyecto académico
 
-https://github.com/AlemXY/SCREENORA
-
-## 15. Evidencias
-
-La carpeta Evidencias contiene capturas del
-funcionamiento de la aplicación, las operaciones
-de gestión y la integración con MongoDB.
-
-## 16. Proyecto académico
-
-Asignatura: Desarrollo Web Full-Stack / Programación Web.
-
-Evaluación: Producto Académico N.º 3 (PA3).
-
-Proyecto: SCREENORA.
-
-Desarrollado con React, TypeScript, Node.js,
-Express y MongoDB.
+**Proyecto:** SCREENORA  
+**Evaluación:** Producto Académico N.º 4 (PA4)  
+**Asignatura:** Programación Web Avanzada  
+**Stack:** React, TypeScript, Tailwind CSS, Node.js, Express y MongoDB Atlas.
