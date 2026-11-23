@@ -1,6 +1,6 @@
-const API_BASE = import.meta.env.DEV
-  ? "http://localhost:3000"
-  : "https://screenora-api.onrender.com";
+import { CONFIG } from "../config";
+
+const API_BASE = CONFIG.API_URL;
 
 const API_MI_LISTA = `${API_BASE}/api/mi-lista`;
 

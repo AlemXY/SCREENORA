@@ -1,4 +1,5 @@
 import { useReducer, useRef, type FormEvent } from "react";
+import { CONFIG } from "../config";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -88,9 +89,7 @@ type RespuestaLogin = {
 
 const modoDesarrollo = import.meta.env.DEV;
 
-const API_BASE = modoDesarrollo
-  ? "http://localhost:3000"
-  : "https://screenora-api.onrender.com";
+const API_BASE = CONFIG.API_URL;
 
 const API_CONTENIDOS = `${API_BASE}/api/contenidos`;
 

@@ -1,6 +1,6 @@
-const API_BASE = import.meta.env.DEV
-  ? "http://localhost:3000"
-  : "https://screenora-api.onrender.com";
+import { CONFIG } from "../config";
+
+const API_BASE = CONFIG.API_URL;
 
 export type Usuario = {
   id: string;
