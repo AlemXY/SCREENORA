@@ -11,7 +11,6 @@ import { protegerUsuario } from "../middlewares/protegerUsuario";
 
 const router = Router();
 
-// Todas las rutas requieren JWT de usuario
 router.use(protegerUsuario);
 
 router.get("/", listarMiLista);

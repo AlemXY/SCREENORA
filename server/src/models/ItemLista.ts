@@ -34,7 +34,6 @@ const itemListaSchema = new Schema(
   },
 );
 
-// Facilita las consultas de la lista de cada usuario
 itemListaSchema.index({
   usuario: 1,
   createdAt: -1,

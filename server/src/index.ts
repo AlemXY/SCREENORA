@@ -2,6 +2,8 @@ import "dotenv/config";
 
 import express, { type Request, type Response } from "express";
 
+import path from "path";
+
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -9,6 +11,9 @@ import authRoutes from "./routes/authRoutes";
 import contenidoRoutes from "./routes/contenidoRoutes";
 import { listarContenidos } from "./controllers/contenidoController";
 import miListaRoutes from "./routes/miListaRoutes";
+import directorRoutes from "./routes/directorRoutes";
+import categoriaRoutes from "./routes/categoriaRoutes";
+import productoRoutes from "./routes/productoRoutes";
 
 const app = express();
 
@@ -44,17 +49,25 @@ app.use(
 );
 
 app.use(express.json({ limit: "100kb" }));
+
+app.use(
+  "/imagenes",
+  express.static(path.join(__dirname, "../public/imagenes")),
+);
+
 app.use("/api/auth", authRoutes);
 
 app.use("/api/contenidos", contenidoRoutes);
 
 app.use("/api/mi-lista", miListaRoutes);
 
-app.get("/contenidos", listarContenidos);
+app.use("/api/directores", directorRoutes);
 
-// ==========================================
-// CONEXIÓN CON MONGODB ATLAS
-// ==========================================
+app.use("/api/categorias", categoriaRoutes);
+
+app.use("/api/productos", productoRoutes);
+
+app.get("/contenidos", listarContenidos);
 
 const conectarMongoDB = async (): Promise<void> => {
   const uri = process.env.MONGODB_URI;
@@ -115,10 +128,6 @@ const conectarMongoDB = async (): Promise<void> => {
   }
 };
 
-// ==========================================
-// ESTADO DE MONGODB
-// ==========================================
-
 app.get("/estado-mongodb", async (_req: Request, res: Response) => {
   const conectado = mongoose.connection.readyState === 1;
 
@@ -126,10 +135,6 @@ app.get("/estado-mongodb", async (_req: Request, res: Response) => {
     mongodb: conectado ? "Conectado" : "Desconectado",
   });
 });
-
-// ==========================================
-// INICIAR EL SERVIDOR
-// ==========================================
 
 app.listen(port, host, () => {
   console.log(`Servidor ejecutándose en ${host}:${port}`);

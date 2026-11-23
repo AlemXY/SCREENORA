@@ -2,10 +2,6 @@ import { useReducer, useRef, type FormEvent } from "react";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-// ==========================================
-// TIPOS
-// ==========================================
-
 type Contenido = {
   _id?: string;
   id?: number | string;
@@ -90,10 +86,6 @@ type RespuestaLogin = {
   };
 };
 
-// ==========================================
-// CONFIGURACIÓN DE API
-// ==========================================
-
 const modoDesarrollo = import.meta.env.DEV;
 
 const API_BASE = modoDesarrollo
@@ -101,10 +93,6 @@ const API_BASE = modoDesarrollo
   : "https://screenora-api.onrender.com";
 
 const API_CONTENIDOS = `${API_BASE}/api/contenidos`;
-
-// ==========================================
-// ESTADO DEL FORMULARIO
-// ==========================================
 
 const camposIniciales: CamposFormulario = {
   titulo: "",
@@ -193,10 +181,6 @@ const reducerFormulario = (
   }
 };
 
-// ==========================================
-// ESTADO DEL ADMINISTRADOR
-// ==========================================
-
 const estadoSesionInicial: EstadoSesion = {
   abierto: false,
   correo: "",
@@ -260,10 +244,6 @@ const reducerSesion = (
   }
 };
 
-// ==========================================
-// FUNCIONES AUXILIARES DE API
-// ==========================================
-
 const esObjetoJSON = (valor: unknown): valor is Record<string, unknown> => {
   return typeof valor === "object" && valor !== null && !Array.isArray(valor);
 };
@@ -277,10 +257,6 @@ const obtenerMensajeError = async (respuesta: Response): Promise<string> => {
 
   return `Error del servidor (${respuesta.status})`;
 };
-
-// ==========================================
-// LOGIN
-// ==========================================
 
 const iniciarSesion = async ({
   correo,
@@ -323,10 +299,6 @@ const iniciarSesion = async ({
   };
 };
 
-// ==========================================
-// READ
-// ==========================================
-
 const obtenerContenidos = async (): Promise<Contenido[]> => {
   const respuesta = await fetch(API_CONTENIDOS);
 
@@ -342,10 +314,6 @@ const obtenerContenidos = async (): Promise<Contenido[]> => {
 
   return datos as Contenido[];
 };
-
-// ==========================================
-// CREATE / UPDATE
-// ==========================================
 
 const guardarContenido = async ({
   id,
@@ -380,10 +348,6 @@ const guardarContenido = async ({
   }
 };
 
-// ==========================================
-// DELETE
-// ==========================================
-
 const eliminarContenido = async ({
   id,
   token,
@@ -408,10 +372,6 @@ const eliminarContenido = async ({
     throw new Error(await obtenerMensajeError(respuesta));
   }
 };
-
-// ==========================================
-// VALIDACIONES
-// ==========================================
 
 const validarFormulario = (campos: CamposFormulario): string | null => {
   if (campos.titulo.trim().length < 2) {
@@ -464,10 +424,6 @@ const validarFormulario = (campos: CamposFormulario): string | null => {
 
   return null;
 };
-
-// ==========================================
-// CONFIGURACIÓN DE CAMPOS
-// ==========================================
 
 type ConfiguracionCampo = {
   nombre: keyof CamposFormulario;
@@ -525,10 +481,6 @@ const camposConfigurados: ConfiguracionCampo[] = [
   },
 ];
 
-// ==========================================
-// ICONOS Y UTILIDADES VISUALES
-// ==========================================
-
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-yellow-400 text-yellow-400">
     <path d="m12 2.5 2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.31l-5.8 3.05 1.11-6.46-4.7-4.58 6.49-.94L12 2.5Z" />
@@ -573,10 +525,6 @@ const Puntuacion = ({ valor }: { valor: string | number }) => (
   </div>
 );
 
-// ==========================================
-// COMPONENTE PRINCIPAL
-// ==========================================
-
 const Catalogo = () => {
   const queryClient = useQueryClient();
 
@@ -594,7 +542,6 @@ const Catalogo = () => {
 
   const autenticado = sesion.token !== null;
 
-  // CONSULTAR
   const {
     data: contenidos = [],
     isPending: cargando,
@@ -607,12 +554,10 @@ const Catalogo = () => {
     retry: 1,
   });
 
-  // LOGIN
   const mutacionLogin = useMutation({
     mutationFn: iniciarSesion,
   });
 
-  // REGISTRAR / EDITAR
   const mutacionGuardar = useMutation({
     mutationFn: guardarContenido,
     onSuccess: async () => {
@@ -622,7 +567,6 @@ const Catalogo = () => {
     },
   });
 
-  // ELIMINAR
   const mutacionEliminar = useMutation({
     mutationFn: eliminarContenido,
     onSuccess: async () => {
@@ -635,10 +579,6 @@ const Catalogo = () => {
   const guardando = mutacionGuardar.isPending;
   const eliminando = mutacionEliminar.isPending;
   const ocupado = guardando || eliminando;
-
-  // ======================================
-  // ACCIONES DE AUTENTICACIÓN
-  // ======================================
 
   const enviarLogin = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
@@ -684,10 +624,6 @@ const Catalogo = () => {
     dispatchSesion({ type: "SALIR" });
     dispatchFormulario({ type: "CERRAR" });
   };
-
-  // ======================================
-  // ACCIONES DEL FORMULARIO
-  // ======================================
 
   const desplazarAlFormulario = () => {
     requestAnimationFrame(() => {
@@ -781,10 +717,6 @@ const Catalogo = () => {
     }
   };
 
-  // ======================================
-  // ACCIÓN DE ELIMINACIÓN
-  // ======================================
-
   const confirmarEliminacion = async (contenido: Contenido) => {
     if (!autenticado || !sesion.token || ocupado || !contenido._id) {
       return;
@@ -817,34 +749,28 @@ const Catalogo = () => {
     }
   };
 
-  // ======================================
-  // INTERFAZ
-  // ======================================
-
   return (
     <section
       id="catalogo"
-      className="bg-screenora-bg px-6 py-20 lg:px-10 xl:px-12"
+      className="relative overflow-hidden bg-[#080b1d] px-5 py-16 sm:px-8 lg:px-12 xl:px-16"
     >
-      <div className="mx-auto max-w-375">
-        {/* ENCABEZADO */}
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <div className="relative z-10 mx-auto max-w-screen-2xl">
+        <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-screenora-violet">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.22em] text-screenora-violet">
               Explora nuestro contenido
             </p>
 
-            <h2 className="text-3xl font-extrabold text-white md:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               Catálogo de Screenora
             </h2>
 
-            <p className="mt-4 max-w-2xl text-[16px] leading-7 text-white/60">
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-white/50 sm:text-base">
               Descubre las películas y series disponibles en nuestra plataforma,
               junto con su información principal.
             </p>
           </div>
 
-          {/* CONTROLES DE ADMINISTRACIÓN */}
           {
             <div className="flex flex-wrap items-center gap-3">
               {autenticado ? (
@@ -881,7 +807,7 @@ const Catalogo = () => {
                 <button
                   type="button"
                   onClick={() => dispatchSesion({ type: "ABRIR" })}
-                  className="cursor-pointer rounded-xl border border-screenora-violet/40 px-5 py-3 text-sm font-bold text-screenora-violet transition-colors hover:bg-screenora-violet/10"
+                  className="cursor-pointer rounded-full border border-screenora-violet/40 bg-screenora-violet/5 px-6 py-3 text-sm font-bold text-screenora-violet transition-all duration-300 hover:border-screenora-violet hover:bg-screenora-violet/15"
                 >
                   Acceso administrador
                 </button>
@@ -890,7 +816,6 @@ const Catalogo = () => {
           }
         </div>
 
-        {/* INICIO DE SESIÓN */}
         {!autenticado && sesion.abierto && (
           <div className="mb-8 rounded-2xl border border-screenora-violet/30 bg-[#11152e] p-5 shadow-2xl sm:p-7">
             <div className="mb-6 flex items-start justify-between gap-4">
@@ -998,7 +923,6 @@ const Catalogo = () => {
           </div>
         )}
 
-        {/* MENSAJES */}
         {formulario.mensaje && (
           <p
             role="status"
@@ -1017,7 +941,6 @@ const Catalogo = () => {
           </p>
         )}
 
-        {/* FORMULARIO PARA CREAR / EDITAR */}
         {autenticado && formulario.abierto && (
           <div
             ref={formularioRef}
@@ -1049,7 +972,6 @@ const Catalogo = () => {
 
             <form onSubmit={enviarFormulario}>
               <div className="grid gap-5 sm:grid-cols-2">
-                {/* TIPO */}
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="contenido-tipo"
@@ -1074,7 +996,6 @@ const Catalogo = () => {
                   </select>
                 </div>
 
-                {/* RESTO DE CAMPOS */}
                 {camposConfigurados.map((campo) => (
                   <div key={campo.nombre} className="flex flex-col gap-2">
                     <label
@@ -1139,8 +1060,7 @@ const Catalogo = () => {
           </div>
         )}
 
-        {/* CATÁLOGO */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#11152e] shadow-2xl">
+        <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#10152b] shadow-2xl shadow-black/20">
           {cargando && (
             <div className="flex min-h-75 items-center justify-center">
               <div className="flex flex-col items-center gap-4">
@@ -1174,7 +1094,6 @@ const Catalogo = () => {
 
           {!cargando && !isError && contenidos.length > 0 && (
             <>
-              {/* VISTA MÓVIL */}
               <div className="grid gap-4 p-4 md:hidden">
                 {contenidos.map((contenido, indice) => (
                   <article
@@ -1264,7 +1183,6 @@ const Catalogo = () => {
                 ))}
               </div>
 
-              {/* VISTA ESCRITORIO */}
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full min-w-262.5 border-collapse">
                   <thead>

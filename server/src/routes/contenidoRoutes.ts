@@ -12,11 +12,9 @@ import { protegerAdministrador } from "../middlewares/protegerAdministrador";
 
 const router = Router();
 
-// Rutas públicas
 router.get("/", listarContenidos);
 router.get("/:id", obtenerContenido);
 
-// Rutas protegidas con JWT
 router.post("/", protegerAdministrador, crearContenido);
 
 router.put("/:id", protegerAdministrador, actualizarContenido);

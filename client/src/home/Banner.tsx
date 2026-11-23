@@ -320,16 +320,14 @@ const Banner = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen overflow-hidden bg-screenora-bg"
+      className="relative isolate min-h-screen overflow-hidden bg-[#080b1d]"
     >
-      {/* Contenido con transición entre películas */}
       <div
         onTransitionEnd={manejarFinTransicion}
-        className={`relative min-h-screen transition-opacity duration-350 ease-in-out ${
+        className={`relative min-h-screen transition-opacity duration-500 ease-in-out ${
           estado.fase === "saliendo" ? "opacity-0" : "opacity-100"
         }`}
       >
-        {/* Imagen de portada */}
         <img
           key={contenido.titulo}
           src={contenido.imagen}
@@ -337,12 +335,11 @@ const Banner = () => {
           onLoad={programarTrailer}
           fetchPriority={estado.actual === 0 ? "high" : "auto"}
           decoding="async"
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
             videoVisible ? "opacity-0" : "opacity-100"
           }`}
         />
 
-        {/* Video automático */}
         {videoMontado && (
           <video
             key={contenido.titulo}
@@ -361,48 +358,56 @@ const Banner = () => {
           />
         )}
 
-        {/* Gradientes */}
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-screenora-bg via-screenora-bg/75 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-[#080b1d] via-[#080b1d]/85 to-[#080b1d]/15" />
 
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-screenora-bg via-transparent to-black/20" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#080b1d] via-transparent to-[#080b1d]/35" />
 
-        {/* Información de película */}
-        <div className="relative z-10 flex min-h-screen items-center px-6 pt-20 lg:px-10 xl:px-12">
-          <div className="max-w-170">
-            <p className="mb-6 text-sm font-bold tracking-wide text-screenora-violet">
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent to-[#080b1d]/30" />
+
+        <div className="relative z-10 flex min-h-screen items-center px-5 pb-32 pt-28 sm:px-8 lg:px-12 xl:px-16">
+          <div className="w-full max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-screenora-purple/30 bg-screenora-purple/10 px-4 py-2 backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-screenora-violet shadow-[0_0_10px_currentColor]" />
+
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white sm:text-xs">
+                Destacado en Screenora
+              </span>
+            </div>
+
+            <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.2em] text-screenora-violet sm:text-sm">
               {contenido.generos}
             </p>
 
-            <h1 className="mb-6 text-5xl font-extrabold leading-none tracking-[-0.04em] text-white md:text-6xl xl:text-7xl">
+            <h1 className="max-w-3xl text-5xl font-extrabold leading-[0.98] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl xl:text-8xl">
               {contenido.titulo}
             </h1>
 
-            <div className="mb-7 flex flex-wrap items-center gap-4 text-[16px] text-white">
-              <span className="flex items-center gap-2">
+            <div className="mt-7 flex flex-wrap items-center gap-3 text-xs font-semibold text-white/80 sm:gap-4 sm:text-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-screenora-purple/30 bg-screenora-purple/10 px-3 py-2 text-white">
                 <span className="text-screenora-violet">★</span>
                 {contenido.puntuacion}
               </span>
 
-              <span className="text-white/50">•</span>
               <span>{contenido.año}</span>
-              <span className="text-white/50">•</span>
+
+              <span className="h-1 w-1 rounded-full bg-white/40" />
+
               <span>{contenido.duracion}</span>
 
-              <span className="rounded-md bg-white/15 px-2 py-1 text-sm font-semibold">
+              <span className="rounded-md border border-white/20 bg-white/10 px-2.5 py-1">
                 {contenido.clasificacion}
               </span>
             </div>
 
-            <p className="mb-9 max-w-162.5 text-[17px] leading-7 text-white/75">
+            <p className="mt-7 max-w-xl text-sm leading-7 text-white/75 sm:text-base lg:text-lg">
               {contenido.descripcion}
             </p>
 
-            {/* Botones futuros */}
-            <div className="flex flex-wrap items-center gap-6">
+            <div className="mt-9 flex flex-wrap items-center gap-3 sm:gap-5">
               <button
                 type="button"
                 title="Próximamente: ver película completa"
-                className="flex cursor-pointer items-center gap-2 rounded-xl bg-linear-to-r from-screenora-purple to-screenora-violet px-8 py-4 font-bold text-white shadow-lg transition-transform duration-300 hover:-translate-y-1"
+                className="flex cursor-pointer items-center gap-3 rounded-full bg-linear-to-r from-screenora-purple to-screenora-violet px-7 py-3.5 text-sm font-bold text-white shadow-xl shadow-screenora-purple/20 transition-all duration-300 hover:-translate-y-1 hover:brightness-110 sm:px-8 sm:py-4"
               >
                 Ver ahora
                 <PlayIcon />
@@ -411,15 +416,15 @@ const Banner = () => {
               <button
                 type="button"
                 title="Próximamente: añadir a mi lista"
-                className="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-4 font-bold text-white transition-opacity duration-300 hover:opacity-70"
+                className="flex cursor-pointer items-center gap-3 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all duration-300 hover:border-screenora-purple/60 hover:bg-white/10 sm:py-4"
               >
-                Mi lista
                 <BookmarkIcon />
+                Mi lista
               </button>
             </div>
 
             {estado.errorVideo && (
-              <p role="alert" className="mt-4 text-sm text-red-300">
+              <p role="alert" className="mt-5 text-sm text-red-300">
                 No se pudo reproducir el tráiler.
               </p>
             )}
@@ -427,32 +432,31 @@ const Banner = () => {
         </div>
       </div>
 
-      {/* Controles del carrusel */}
-      <div className="absolute bottom-8 right-6 z-20 flex items-center gap-4 lg:right-12">
+      <div className="absolute bottom-6 right-4 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-[#080b1d]/60 p-2 shadow-xl backdrop-blur-xl sm:bottom-8 sm:right-8 lg:right-12">
         <button
           type="button"
           onClick={anterior}
           aria-label="Contenido anterior"
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/10"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/10 sm:h-10 sm:w-10"
         >
           <ArrowLeftIcon />
         </button>
 
-        <div className="flex min-w-40 items-center gap-3">
-          <span className="text-sm font-bold text-white">
+        <div className="flex min-w-24 items-center gap-2 sm:min-w-36 sm:gap-3">
+          <span className="text-xs font-bold text-white">
             {estado.actual + 1}
           </span>
 
-          <div className="h-0.5 flex-1 overflow-hidden bg-white/30">
+          <div className="h-0.5 flex-1 overflow-hidden rounded-full bg-white/20">
             <div
-              className="h-full bg-screenora-violet transition-all duration-500"
+              className="h-full rounded-full bg-screenora-violet transition-all duration-500"
               style={{
                 width: `${((estado.actual + 1) / contenidos.length) * 100}%`,
               }}
             />
           </div>
 
-          <span className="text-sm font-bold text-white">
+          <span className="text-xs font-bold text-white/50">
             {contenidos.length}
           </span>
         </div>
@@ -461,17 +465,19 @@ const Banner = () => {
           type="button"
           onClick={siguiente}
           aria-label="Siguiente contenido"
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/10"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/10 sm:h-10 sm:w-10"
         >
           <ArrowRightIcon />
         </button>
+
+        <div className="mx-1 h-6 w-px bg-white/10" />
 
         <button
           type="button"
           onClick={cambiarSonido}
           disabled={!videoVisible}
           aria-label={estado.silenciado ? "Activar sonido" : "Silenciar video"}
-          className={`flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-sm transition-all duration-300 ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors duration-300 sm:h-10 sm:w-10 ${
             videoVisible
               ? "cursor-pointer hover:bg-white/10"
               : "cursor-not-allowed opacity-40"

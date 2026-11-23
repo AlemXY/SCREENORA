@@ -2,10 +2,6 @@ const API_BASE = import.meta.env.DEV
   ? "http://localhost:3000"
   : "https://screenora-api.onrender.com";
 
-// ==========================================
-// TIPOS
-// ==========================================
-
 export type Usuario = {
   id: string;
   nombre: string;
@@ -42,10 +38,6 @@ export type RespuestaSesionUsuario = {
   usuario: Usuario;
 };
 
-// ==========================================
-// MANEJO DE ERRORES
-// ==========================================
-
 const obtenerMensajeError = async (respuesta: Response): Promise<string> => {
   const datos: unknown = await respuesta.json().catch(() => null);
 
@@ -60,10 +52,6 @@ const obtenerMensajeError = async (respuesta: Response): Promise<string> => {
 
   return `Error del servidor (${respuesta.status})`;
 };
-
-// ==========================================
-// REGISTRAR USUARIO
-// ==========================================
 
 export const registrarUsuario = async (
   datos: DatosRegistro,
@@ -83,10 +71,6 @@ export const registrarUsuario = async (
   return (await respuesta.json()) as RespuestaRegistro;
 };
 
-// ==========================================
-// INICIAR SESIÓN
-// ==========================================
-
 export const iniciarSesionUsuario = async (
   datos: DatosLogin,
 ): Promise<RespuestaLoginUsuario> => {
@@ -104,10 +88,6 @@ export const iniciarSesionUsuario = async (
 
   return (await respuesta.json()) as RespuestaLoginUsuario;
 };
-
-// ==========================================
-// VERIFICAR SESIÓN
-// ==========================================
 
 export const verificarSesionUsuario = async (
   token: string,

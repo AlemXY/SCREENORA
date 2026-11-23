@@ -42,7 +42,6 @@ const crearAdministrador = async (): Promise<void> => {
 
   console.log("Conectado con MongoDB Atlas.");
 
-  // Por ahora permitimos un solo administrador.
   const administradorExistente = await Administrador.exists({});
 
   if (administradorExistente) {
@@ -50,7 +49,6 @@ const crearAdministrador = async (): Promise<void> => {
     return;
   }
 
-  // Nunca guardamos la contraseña original.
   const passwordHash = await bcrypt.hash(password, 12);
 
   await Administrador.create({

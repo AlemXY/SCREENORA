@@ -4,10 +4,6 @@ const API_BASE = import.meta.env.DEV
 
 const API_MI_LISTA = `${API_BASE}/api/mi-lista`;
 
-// ==========================================
-// TIPOS
-// ==========================================
-
 export type ItemMiLista = {
   _id: string;
   titulo: string;
@@ -26,10 +22,6 @@ type RespuestaItem = {
   contenido: ItemMiLista;
 };
 
-// ==========================================
-// ERRORES
-// ==========================================
-
 const comprobarRespuesta = async (respuesta: Response): Promise<void> => {
   if (respuesta.ok) return;
 
@@ -46,10 +38,6 @@ const comprobarRespuesta = async (respuesta: Response): Promise<void> => {
 
   throw new Error(`Error del servidor (${respuesta.status})`);
 };
-
-// ==========================================
-// GET - CONSULTAR MI LISTA
-// ==========================================
 
 export const obtenerMiLista = async (token: string): Promise<ItemMiLista[]> => {
   const respuesta = await fetch(API_MI_LISTA, {
@@ -69,10 +57,6 @@ export const obtenerMiLista = async (token: string): Promise<ItemMiLista[]> => {
   return datos as ItemMiLista[];
 };
 
-// ==========================================
-// POST - AGREGAR CONTENIDO
-// ==========================================
-
 export const agregarAMiLista = async (
   token: string,
   datos: DatosNuevoItem,
@@ -90,10 +74,6 @@ export const agregarAMiLista = async (
 
   return (await respuesta.json()) as RespuestaItem;
 };
-
-// ==========================================
-// PUT - ACTUALIZAR ESTADO
-// ==========================================
 
 export const actualizarMiLista = async (
   token: string,
@@ -113,10 +93,6 @@ export const actualizarMiLista = async (
 
   return (await respuesta.json()) as RespuestaItem;
 };
-
-// ==========================================
-// DELETE - ELIMINAR CONTENIDO
-// ==========================================
 
 export const eliminarDeMiLista = async (
   token: string,

@@ -4,10 +4,6 @@ import mongoose from "mongoose";
 import ItemLista from "../models/ItemLista";
 import { verificarMongoDB } from "../utils/verificarMongoDB";
 
-// ==========================================
-// FUNCIONES AUXILIARES
-// ==========================================
-
 const esObjetoJSON = (valor: unknown): valor is Record<string, unknown> => {
   return typeof valor === "object" && valor !== null && !Array.isArray(valor);
 };
@@ -33,10 +29,6 @@ const manejarError = (error: unknown, res: Response, mensaje: string): void => {
   });
 };
 
-// ==========================================
-// GET - LISTAR MIS CONTENIDOS
-// ==========================================
-
 export const listarMiLista: RequestHandler = async (_req, res) => {
   if (!verificarMongoDB(res)) return;
 
@@ -52,10 +44,6 @@ export const listarMiLista: RequestHandler = async (_req, res) => {
     manejarError(error, res, "No se pudo consultar tu lista");
   }
 };
-
-// ==========================================
-// POST - AGREGAR A MI LISTA
-// ==========================================
 
 export const agregarMiLista: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
@@ -103,10 +91,6 @@ export const agregarMiLista: RequestHandler = async (req, res) => {
     manejarError(error, res, "No se pudo agregar el contenido");
   }
 };
-
-// ==========================================
-// PUT - ACTUALIZAR ESTADO
-// ==========================================
 
 export const actualizarMiLista: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
@@ -166,10 +150,6 @@ export const actualizarMiLista: RequestHandler = async (req, res) => {
     manejarError(error, res, "No se pudo actualizar el contenido");
   }
 };
-
-// ==========================================
-// DELETE - ELIMINAR DE MI LISTA
-// ==========================================
 
 export const eliminarMiLista: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;

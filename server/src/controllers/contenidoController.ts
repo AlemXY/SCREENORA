@@ -4,10 +4,6 @@ import mongoose from "mongoose";
 import Contenido from "../models/Contenido";
 import { verificarMongoDB } from "../utils/verificarMongoDB";
 
-// ==========================================
-// FUNCIONES AUXILIARES
-// ==========================================
-
 const esObjetoJSON = (valor: unknown): valor is Record<string, unknown> => {
   return typeof valor === "object" && valor !== null && !Array.isArray(valor);
 };
@@ -57,10 +53,6 @@ const manejarErrorContenido = (
   });
 };
 
-// ==========================================
-// GET - LISTAR TODOS
-// ==========================================
-
 export const listarContenidos: RequestHandler = async (_req, res) => {
   if (!verificarMongoDB(res)) return;
 
@@ -74,10 +66,6 @@ export const listarContenidos: RequestHandler = async (_req, res) => {
     manejarErrorContenido(error, res, "No se pudieron obtener los contenidos");
   }
 };
-
-// ==========================================
-// GET - CONSULTAR POR ID
-// ==========================================
 
 export const obtenerContenido: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
@@ -107,10 +95,6 @@ export const obtenerContenido: RequestHandler = async (req, res) => {
   }
 };
 
-// ==========================================
-// POST - CREAR CONTENIDO
-// ==========================================
-
 export const crearContenido: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
 
@@ -135,10 +119,6 @@ export const crearContenido: RequestHandler = async (req, res) => {
     manejarErrorContenido(error, res, "No se pudo registrar el contenido");
   }
 };
-
-// ==========================================
-// PUT - ACTUALIZAR CONTENIDO
-// ==========================================
 
 export const actualizarContenido: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
@@ -198,10 +178,6 @@ export const actualizarContenido: RequestHandler = async (req, res) => {
     manejarErrorContenido(error, res, "No se pudo actualizar el contenido");
   }
 };
-
-// ==========================================
-// DELETE - ELIMINAR CONTENIDO
-// ==========================================
 
 export const eliminarContenido: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;

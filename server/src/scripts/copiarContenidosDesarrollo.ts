@@ -13,12 +13,10 @@ const copiarContenidos = async (): Promise<void> => {
     throw new Error("No se encontró MONGODB_URI");
   }
 
-  // Verificación de seguridad
   if (process.env.MONGODB_DB_NAME !== BASE_DESTINO) {
     throw new Error("La base de desarrollo no está configurada correctamente.");
   }
 
-  // Dos conexiones independientes
   const origen = mongoose.createConnection(uri, {
     dbName: BASE_ORIGEN,
     serverSelectionTimeoutMS: 10000,
@@ -48,7 +46,6 @@ const copiarContenidos = async (): Promise<void> => {
     console.log("Origen:", origen.name);
     console.log("Destino:", destino.name);
 
-    // Leer los contenidos originales
     const contenidos = await dbOrigen
       .collection("contenidos")
       .find({})
@@ -61,7 +58,6 @@ const copiarContenidos = async (): Promise<void> => {
       return;
     }
 
-    // Modelo asociado exclusivamente a la base destino
     const ContenidoDestino = destino.model(
       "ContenidoDesarrollo",
       Contenido.schema,

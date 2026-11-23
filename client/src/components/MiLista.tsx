@@ -79,7 +79,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
 
   const claveLista = ["mi-lista", usuarioId];
 
-  // CONSULTAR
   const {
     data: contenidos = [],
     isPending: cargando,
@@ -91,7 +90,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
     retry: 1,
   });
 
-  // AGREGAR
   const mutacionAgregar = useMutation({
     mutationFn: (datos: DatosNuevoItem) => agregarAMiLista(token, datos),
 
@@ -114,7 +112,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
     },
   });
 
-  // ACTUALIZAR
   const mutacionActualizar = useMutation({
     mutationFn: ({
       id,
@@ -143,7 +140,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
     },
   });
 
-  // ELIMINAR
   const mutacionEliminar = useMutation({
     mutationFn: (id: string) => eliminarDeMiLista(token, id),
 
@@ -219,7 +215,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
         Organiza tus películas y series favoritas.
       </p>
 
-      {/* FORMULARIO */}
       <form onSubmit={enviarFormulario} className="mt-5 space-y-3">
         <input
           type="text"
@@ -266,7 +261,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
         </div>
       </form>
 
-      {/* MENSAJES */}
       {formulario.error && (
         <p role="alert" className="mt-4 text-sm text-red-300">
           {formulario.error}
@@ -279,7 +273,6 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
         </p>
       )}
 
-      {/* CONTENIDOS */}
       <div className="mt-6 space-y-3">
         {cargando && (
           <p className="text-sm text-white/50">Cargando tu lista...</p>

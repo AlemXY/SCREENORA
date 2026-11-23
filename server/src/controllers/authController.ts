@@ -8,7 +8,6 @@ import Usuario from "../models/Usuario";
 import Administrador from "../models/Administrador";
 import { verificarMongoDB } from "../utils/verificarMongoDB";
 
-// Iniciar sesión como administrador
 export const iniciarSesion: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
 
@@ -96,7 +95,6 @@ export const iniciarSesion: RequestHandler = async (req, res) => {
   }
 };
 
-// Verificar la sesión del administrador
 export const verificarSesion: RequestHandler = (_req, res) => {
   res.status(200).json({
     autenticado: true,
@@ -104,10 +102,6 @@ export const verificarSesion: RequestHandler = (_req, res) => {
     mensaje: "Sesión de administrador válida",
   });
 };
-
-// ==========================================
-// REGISTRO DE USUARIOS
-// ==========================================
 
 export const registrarUsuario: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
@@ -225,10 +219,6 @@ export const registrarUsuario: RequestHandler = async (req, res) => {
   }
 };
 
-// ==========================================
-// INICIO DE SESIÓN DE USUARIOS
-// ==========================================
-
 export const iniciarSesionUsuario: RequestHandler = async (req, res) => {
   if (!verificarMongoDB(res)) return;
 
@@ -317,10 +307,6 @@ export const iniciarSesionUsuario: RequestHandler = async (req, res) => {
     });
   }
 };
-
-// ==========================================
-// VERIFICAR SESIÓN DE USUARIO
-// ==========================================
 
 export const verificarSesionUsuario: RequestHandler = (_req, res) => {
   res.status(200).json({

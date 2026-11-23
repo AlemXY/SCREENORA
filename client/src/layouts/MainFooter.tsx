@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const FacebookIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
     <path d="M13.5 22v-9h3l.45-3.5H13.5V7.25c0-1.01.28-1.7 1.74-1.7H17.1V2.42c-.32-.04-1.42-.14-2.7-.14-2.67 0-4.5 1.63-4.5 4.63V9.5H7v3.5h2.9v9h3.6Z" />
@@ -66,201 +68,189 @@ const opcionesAyuda = [
   "Empleos",
 ];
 
-const opcionesScreenora = ["Planes", "Novedades", "Dispositivos", "Nosotros"];
-
 const MainFooter = () => {
   return (
-    <footer className="relative bg-[#171a37] text-white">
-      <div className="h-5 bg-[#070a23]" />
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#080b1d] text-white">
+      <div className="absolute left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-screenora-purple/70 to-transparent" />
 
-      <div className="mx-auto max-w-[1720px] px-8 pb-14 pt-20 lg:px-14">
-        <div className="grid gap-14 lg:grid-cols-2 xl:grid-cols-[1.35fr_0.9fr_1.05fr_0.8fr_0.7fr]">
-          {/* Marca y redes sociales */}
+      <div className="mx-auto max-w-screen-2xl px-5 pb-10 pt-14 sm:px-8 lg:px-12 lg:pb-12 lg:pt-16">
+        <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.45fr_0.85fr_1.1fr_0.85fr_0.85fr]">
           <div>
-            <div className="mb-16 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-screenora-purple to-screenora-violet">
+            <Link to="/" className="mb-7 inline-flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-screenora-purple to-screenora-violet shadow-lg shadow-screenora-purple/20">
                 <svg viewBox="0 0 24 24" className="ml-0.5 h-5 w-5 fill-white">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
 
-              <span className="text-3xl font-extrabold tracking-tight">
-                Screenora
+              <span className="text-2xl font-extrabold tracking-[0.04em]">
+                SCREENORA
               </span>
-            </div>
+            </Link>
 
-            <p className="mb-4 text-sm font-medium text-white">
+            <p className="mb-6 max-w-xs text-sm leading-6 text-white/55">
+              Descubre películas y series. Encuentra tu próxima historia
+              favorita en SCREENORA.
+            </p>
+
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-white/75">
               Conecta con nosotros
             </p>
 
-            <div className="mb-12 flex items-center gap-4">
+            <div className="mb-9 flex items-center gap-3">
               <button
                 type="button"
-                aria-label="Facebook"
-                title="Red social próximamente"
-                className="cursor-pointer text-white transition-all duration-300 hover:-translate-y-1 hover:text-screenora-violet"
+                disabled
+                aria-label="Facebook próximamente"
+                title="Facebook próximamente"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition-all duration-300 hover:border-screenora-purple hover:bg-screenora-purple hover:text-white disabled:cursor-not-allowed"
               >
                 <FacebookIcon />
               </button>
 
               <button
                 type="button"
-                aria-label="Instagram"
-                title="Red social próximamente"
-                className="cursor-pointer text-white transition-all duration-300 hover:-translate-y-1 hover:text-screenora-violet"
+                disabled
+                aria-label="Instagram próximamente"
+                title="Instagram próximamente"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition-all duration-300 hover:border-screenora-purple hover:bg-screenora-purple hover:text-white disabled:cursor-not-allowed"
               >
                 <InstagramIcon />
               </button>
 
               <button
                 type="button"
-                aria-label="YouTube"
-                title="Canal próximamente"
-                className="cursor-pointer text-white transition-all duration-300 hover:-translate-y-1 hover:text-screenora-violet"
+                disabled
+                aria-label="YouTube próximamente"
+                title="YouTube próximamente"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 transition-all duration-300 hover:border-screenora-purple hover:bg-screenora-purple hover:text-white disabled:cursor-not-allowed"
               >
                 <YoutubeIcon />
               </button>
             </div>
 
-            {/* Aplicaciones */}
-            <p className="mb-5 text-sm font-medium text-white">
-              Descarga la app de Screenora
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-white/75">
+              Próximamente en tu dispositivo
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <button
                 type="button"
+                disabled
                 title="Aplicación para iOS próximamente"
-                className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/70 bg-black px-4 py-2 text-left transition-all duration-300 hover:-translate-y-1 hover:border-white"
+                className="flex cursor-not-allowed items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-left text-white/65"
               >
                 <AppleIcon />
-
-                <div>
-                  <span className="block text-[9px] leading-none text-white/80">
-                    Descárgalo en
-                  </span>
-
-                  <span className="text-lg font-semibold leading-tight">
-                    App Store
-                  </span>
-                </div>
+                <span>
+                  <span className="block text-[9px]">Descárgalo en</span>
+                  <span className="text-sm font-bold">App Store</span>
+                </span>
               </button>
 
               <button
                 type="button"
+                disabled
                 title="Aplicación para Android próximamente"
-                className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/70 bg-black px-4 py-2 text-left transition-all duration-300 hover:-translate-y-1 hover:border-white"
+                className="flex cursor-not-allowed items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-left text-white/65"
               >
                 <PlayStoreIcon />
-
-                <div>
-                  <span className="block text-[9px] leading-none text-white/80">
-                    Disponible en
-                  </span>
-
-                  <span className="text-lg font-semibold leading-tight">
-                    Google Play
-                  </span>
-                </div>
+                <span>
+                  <span className="block text-[9px]">Disponible en</span>
+                  <span className="text-sm font-bold">Google Play</span>
+                </span>
               </button>
             </div>
           </div>
 
-          {/* Contenidos más vistos */}
           <div>
-            <h3 className="mb-7 text-sm font-extrabold">Más vistas</h3>
+            <h3 className="mb-6 text-sm font-extrabold tracking-wide text-white">
+              MÁS VISTAS
+            </h3>
 
             <div className="flex flex-col items-start gap-4">
               {masVistas.map((titulo) => (
-                <button
+                <span
                   key={titulo}
-                  type="button"
-                  title={`Próximamente: ${titulo}`}
-                  className="cursor-pointer text-sm text-white/75 transition-colors duration-300 hover:text-screenora-violet"
+                  className="text-sm text-white/55 transition-colors duration-300 hover:text-white"
                 >
                   {titulo}
-                </button>
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Géneros */}
           <div>
-            <h3 className="mb-7 text-sm font-extrabold">Géneros</h3>
+            <h3 className="mb-6 text-sm font-extrabold tracking-wide text-white">
+              GÉNEROS
+            </h3>
 
-            <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-4">
               {generos.map((genero) => (
-                <button
+                <span
                   key={genero}
-                  type="button"
-                  title={`Próximamente: ${genero}`}
-                  className="cursor-pointer text-left text-sm text-white/75 transition-colors duration-300 hover:text-screenora-violet"
+                  className="text-sm text-white/55 transition-colors duration-300 hover:text-white"
                 >
                   {genero}
-                </button>
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Ayuda */}
           <div>
-            <h3 className="mb-7 text-sm font-extrabold">Ayuda</h3>
+            <h3 className="mb-6 text-sm font-extrabold tracking-wide text-white">
+              AYUDA
+            </h3>
 
             <div className="flex flex-col items-start gap-4">
               {opcionesAyuda.map((opcion) => (
-                <button
+                <span
                   key={opcion}
-                  type="button"
-                  title={`${opcion}: próximamente`}
-                  className="cursor-pointer text-sm text-white/75 transition-colors duration-300 hover:text-screenora-violet"
+                  className="text-sm text-white/55 transition-colors duration-300 hover:text-white"
                 >
                   {opcion}
-                </button>
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Información de Screenora */}
           <div>
-            <h3 className="mb-7 text-sm font-extrabold">Screenora</h3>
+            <h3 className="mb-6 text-sm font-extrabold tracking-wide text-white">
+              SCREENORA
+            </h3>
 
             <div className="flex flex-col items-start gap-4">
-              {opcionesScreenora.map((opcion) => (
-                <button
-                  key={opcion}
-                  type="button"
-                  title={`${opcion}: próximamente`}
-                  className="cursor-pointer text-sm text-white/75 transition-colors duration-300 hover:text-screenora-violet"
-                >
-                  {opcion}
-                </button>
-              ))}
+              <Link
+                to="/"
+                className="text-sm text-white/55 transition-colors duration-300 hover:text-screenora-purple"
+              >
+                Inicio
+              </Link>
+
+              <Link
+                to="/directores"
+                className="text-sm text-white/55 transition-colors duration-300 hover:text-screenora-purple"
+              >
+                Directores
+              </Link>
+
+              <Link
+                to="/catalogo"
+                className="text-sm text-white/55 transition-colors duration-300 hover:text-screenora-purple"
+              >
+                Catálogo
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Información legal */}
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1720px] flex-col gap-5 px-8 py-7 text-sm text-white/75 md:flex-row md:items-center md:justify-between lg:px-14">
-          <p>Copyright © 2026 Screenora. Todos los derechos reservados.</p>
+      <div className="border-t border-white/10 bg-[#060817]">
+        <div className="mx-auto flex max-w-screen-2xl flex-col gap-4 px-5 py-6 text-xs text-white/45 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
+          <p>Copyright © 2026 SCREENORA. Todos los derechos reservados.</p>
 
-          <div className="flex items-center gap-5">
-            <button
-              type="button"
-              title="Política de privacidad próximamente"
-              className="cursor-pointer transition-colors duration-300 hover:text-white"
-            >
-              Política de privacidad
-            </button>
-
-            <button
-              type="button"
-              title="Términos de servicio próximamente"
-              className="cursor-pointer transition-colors duration-300 hover:text-white"
-            >
-              Términos de servicio
-            </button>
+          <div className="flex flex-wrap items-center gap-5">
+            <span>Política de privacidad</span>
+            <span>Términos de servicio</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useReducer, useRef } from "react";
 import { createPortal } from "react-dom";
+import { Link } from "react-router";
 
 import obsession from "../assets/banner/obsession.jpg";
 import obsessionVideo from "../assets/banner/videos/obsession.mp4";
@@ -417,28 +418,30 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
             abrirPanel(true);
           }
         }}
-        className="w-72.5 shrink-0 cursor-pointer outline-offset-4 focus-visible:outline-2 focus-visible:outline-screenora-violet"
+        className="group w-[290px] shrink-0 cursor-pointer outline-offset-4 focus-visible:outline-2 focus-visible:outline-screenora-violet"
       >
-        <div className="relative aspect-16/10 overflow-hidden rounded-xl bg-white/5">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:border-screenora-purple/50 group-hover:shadow-xl group-hover:shadow-screenora-purple/10">
           <img
             src={pelicula.imagen}
-            alt={pelicula.titulo}
+            alt={`Póster de ${pelicula.titulo}`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
 
-          <div className="absolute left-3 top-3 flex gap-1.5">
+          <div className="absolute inset-0 bg-linear-to-t from-[#080b1d]/90 via-transparent to-black/10" />
+
+          <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
             {pelicula.etiquetas.map((etiqueta) => (
               <span
                 key={etiqueta}
-                className={`rounded px-2 py-1 text-[11px] font-extrabold text-white ${
+                className={`rounded-md px-2 py-1 text-[10px] font-extrabold text-white ${
                   etiqueta === "HDR"
                     ? "bg-black/80"
                     : etiqueta === "NEW"
-                      ? "bg-green-500"
+                      ? "bg-emerald-600"
                       : etiqueta === "Sub"
-                        ? "bg-screenora-violet"
+                        ? "bg-screenora-purple"
                         : "bg-orange-500"
                 }`}
               >
@@ -446,14 +449,25 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
               </span>
             ))}
           </div>
+
+          <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md">
+            <span className="text-sm text-yellow-400">★</span>
+            <span className="text-xs font-bold text-white">
+              {pelicula.puntuacion}
+            </span>
+          </div>
+
+          <div className="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
+            {pelicula.año}
+          </div>
         </div>
 
         <div className="px-1 pt-4">
-          <h3 className="text-[17px] font-extrabold text-white">
+          <h3 className="truncate text-base font-extrabold text-white transition-colors duration-300 group-hover:text-screenora-violet sm:text-lg">
             {pelicula.titulo}
           </h3>
 
-          <p className="mt-1 text-[15px] text-white/65">{pelicula.generos}</p>
+          <p className="mt-1 text-sm text-white/50">{pelicula.generos}</p>
         </div>
       </article>
 
@@ -462,7 +476,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
           <div
             onMouseEnter={cancelarCierre}
             onMouseLeave={cerrarPanel}
-            className={`fixed z-999 overflow-y-auto rounded-xl bg-[#191c35] shadow-2xl transition-all duration-300 ease-out ${
+            className={`fixed z-[999] overflow-y-auto rounded-2xl border border-white/10 bg-[#10152b] shadow-2xl shadow-black/60 transition-all duration-300 ease-out ${
               estado.visible
                 ? "scale-100 opacity-100"
                 : "pointer-events-none scale-95 opacity-0"
@@ -500,7 +514,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                 />
               )}
 
-              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#191c35]/60 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#10152b] via-transparent to-black/20" />
 
               <button
                 type="button"
@@ -509,9 +523,9 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                 aria-label={
                   estado.silenciado ? "Activar sonido" : "Silenciar tráiler"
                 }
-                className={`absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#292c47] text-white transition-all duration-300 ${
+                className={`absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#080b1d]/80 text-white backdrop-blur-md transition-all duration-300 ${
                   estado.reproduciendo
-                    ? "cursor-pointer opacity-100 hover:bg-[#393c58]"
+                    ? "cursor-pointer hover:bg-screenora-purple"
                     : "cursor-not-allowed opacity-40"
                 }`}
               >
@@ -523,7 +537,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
               </button>
             </div>
 
-            <div className="px-6 pb-6 pt-5">
+            <div className="px-5 pb-6 pt-4 sm:px-6">
               <div className="mb-5 flex items-center justify-between gap-3">
                 <h3 className="text-xl font-extrabold text-white">
                   {pelicula.titulo}
@@ -533,7 +547,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                   type="button"
                   onClick={cerrarInmediatamente}
                   aria-label="Cerrar vista previa"
-                  className="cursor-pointer rounded-lg px-2 py-1 text-xl text-white/70 hover:bg-white/10 hover:text-white"
+                  className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/10 text-xl text-white/60 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   ×
                 </button>
@@ -543,7 +557,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                 <button
                   type="button"
                   title="Próximamente: ver contenido completo"
-                  className="flex cursor-pointer items-center gap-2 rounded-lg bg-linear-to-r from-screenora-purple to-screenora-violet px-5 py-3 text-sm font-bold text-white transition-transform duration-300 hover:-translate-y-0.5"
+                  className="flex cursor-pointer items-center gap-2 rounded-full bg-linear-to-r from-screenora-purple to-screenora-violet px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-screenora-purple/20 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
                 >
                   <PlayIcon />
                   Ver ahora
@@ -552,7 +566,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                 <button
                   type="button"
                   title="Próximamente: agregar a mi lista"
-                  className="flex cursor-pointer items-center gap-2 rounded-lg bg-[#30334f] px-5 py-3 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#3a3d5c]"
+                  className="flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-bold text-white transition-colors duration-300 hover:bg-white/10"
                 >
                   Mi lista
                   <BookmarkIcon />
@@ -561,31 +575,31 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
                 <button
                   type="button"
                   title="Próximamente: información detallada"
-                  className="cursor-pointer rounded-lg bg-[#30334f] px-5 py-3 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#3a3d5c]"
+                  className="cursor-pointer rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-bold text-white transition-colors duration-300 hover:bg-white/10"
                 >
                   Detalle ⓘ
                 </button>
               </div>
 
-              <div className="mb-5 flex flex-wrap items-center gap-2.5 text-sm font-semibold text-white">
-                <span className="rounded-md border border-yellow-400 px-2.5 py-1.5 text-yellow-400">
-                  IMDB {pelicula.puntuacion}
+              <div className="mb-5 flex flex-wrap items-center gap-2">
+                <span className="rounded-lg border border-yellow-400/40 bg-yellow-400/5 px-3 py-2 text-xs font-bold text-yellow-400">
+                  ★ IMDb {pelicula.puntuacion}
                 </span>
 
-                <span className="rounded-md border border-white/20 px-2.5 py-1.5">
+                <span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/80">
                   {pelicula.clasificacion}
                 </span>
 
-                <span className="rounded-md border border-white/20 px-2.5 py-1.5">
+                <span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/80">
                   {pelicula.año}
                 </span>
 
-                <span className="rounded-md border border-white/20 px-2.5 py-1.5">
+                <span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/80">
                   {pelicula.duracion}
                 </span>
               </div>
 
-              <p className="leading-6 text-white/70">
+              <p className="text-sm leading-6 text-white/60">
                 {pelicula.generosDetalle}
               </p>
             </div>
@@ -619,7 +633,6 @@ const Tendencias = () => {
 
     const desplazamientoMaximo = Math.max(0, anchoTotal - anchoVisible);
 
-    // 290px de tarjeta + 16px de separación.
     const paso = anchoVisible < 640 ? 306 : 612;
 
     const movimiento = direccion === "derecha" ? paso : -paso;
@@ -657,18 +670,30 @@ const Tendencias = () => {
   return (
     <section
       id="tendencias"
-      className="bg-screenora-bg px-6 py-14 lg:px-10 xl:px-9"
+      className="relative overflow-hidden bg-[#080b1d] px-5 py-14 sm:px-8 lg:px-12 xl:px-16"
     >
-      <div className="mb-7 flex items-center justify-between">
-        <h2 className="text-2xl font-extrabold text-white">En tendencia</h2>
+      <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.22em] text-screenora-violet sm:text-xs">
+            Lo más popular
+          </p>
 
-        <button
-          type="button"
-          className="flex cursor-pointer items-center gap-2 text-sm font-bold text-white transition-opacity duration-300 hover:opacity-70"
+          <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+            En tendencia
+          </h2>
+
+          <p className="mt-2 text-sm text-white/45">
+            Descubre las películas y series que están dando de qué hablar.
+          </p>
+        </div>
+
+        <Link
+          to="/catalogo"
+          className="flex w-fit items-center gap-2 text-sm font-bold text-white/75 transition-colors duration-300 hover:text-screenora-violet"
         >
-          Ver todas
+          Explorar catálogo
           <span className="text-xl">›</span>
-        </button>
+        </Link>
       </div>
 
       <div className="relative">
@@ -676,7 +701,7 @@ const Tendencias = () => {
           type="button"
           onClick={() => moverCarrusel("izquierda")}
           aria-label="Ver contenidos anteriores"
-          className="absolute left-2 top-26.25 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-110 hover:bg-screenora-purple"
+          className="absolute left-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#080b1d]/80 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-screenora-purple sm:flex"
         >
           <ArrowLeftIcon />
         </button>
@@ -685,7 +710,8 @@ const Tendencias = () => {
           ref={contenedorRef}
           onTouchStart={iniciarToque}
           onTouchEnd={terminarToque}
-          className="overflow-hidden pb-6 pt-4"
+          aria-label="Carrusel de contenidos en tendencia"
+          className="overflow-hidden pb-7 pt-4"
         >
           <div
             ref={pistaRef}
@@ -704,7 +730,7 @@ const Tendencias = () => {
           type="button"
           onClick={() => moverCarrusel("derecha")}
           aria-label="Ver más contenidos"
-          className="absolute right-2 top-26.25 z-20 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all duration-300 ease-in-out hover:scale-110 hover:bg-screenora-purple"
+          className="absolute right-2 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#080b1d]/80 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-screenora-purple sm:flex"
         >
           <ArrowRightIcon />
         </button>
