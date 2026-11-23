@@ -115,7 +115,7 @@ const Estrenos = () => {
       <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
         {estrenos.map((estreno) => (
           <article key={estreno.titulo} className="group flex min-w-0 flex-col">
-            <figure className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg shadow-black/10 transition-all duration-500 group-hover:-translate-y-1.5 group-hover:border-screenora-purple/50 group-hover:shadow-xl group-hover:shadow-screenora-purple/10">
+            <figure className="relative aspect-2/3 overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg shadow-black/10 transition-all duration-500 group-hover:-translate-y-1.5 group-hover:border-screenora-purple/50 group-hover:shadow-xl group-hover:shadow-screenora-purple/10">
               <img
                 src={estreno.imagen}
                 alt={`Póster de ${estreno.titulo}`}

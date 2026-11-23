@@ -211,7 +211,7 @@ const MainHeader = () => {
         inert={!menuAbierto}
         className={`overflow-hidden px-4 transition-all duration-300 ease-in-out sm:px-6 lg:hidden ${
           menuAbierto
-            ? "max-h-[36rem] translate-y-0 opacity-100"
+            ? "max-h-144 translate-y-0 opacity-100"
             : "pointer-events-none max-h-0 -translate-y-3 opacity-0"
         }`}
       >

@@ -297,7 +297,7 @@ const MiLista = ({ token, usuarioId }: Propiedades) => {
           >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <h4 className="break-words font-bold text-white">
+                <h4 className="wrap-break-word font-bold text-white">
                   {contenido.titulo}
                 </h4>
 

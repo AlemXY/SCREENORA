@@ -38,7 +38,7 @@ export const CatalogoContenido = () => {
             {Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={index}
-                className="aspect-[2/3] animate-pulse rounded-2xl bg-white/5"
+                className="aspect-2/3 animate-pulse rounded-2xl bg-white/5"
               />
             ))}
           </div>
@@ -69,7 +69,7 @@ export const CatalogoContenido = () => {
 
   if (!hasCategorias) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-16 text-center">
+      <div className="rounded-2xl border border-white/10 bg-white/3 px-6 py-16 text-center">
         <h2 className="text-lg font-bold text-white">
           No hay categorías registradas
         </h2>
@@ -102,10 +102,10 @@ export const CatalogoContenido = () => {
                 type="button"
                 onClick={() => seleccionarCategoria(categoria._id)}
                 aria-pressed={seleccionada}
-                className={`group flex w-[250px] shrink-0 items-center gap-3 rounded-xl border p-2.5 text-left transition-all duration-300 lg:w-full ${
+                className={`group flex w-62.5 shrink-0 items-center gap-3 rounded-xl border p-2.5 text-left transition-all duration-300 lg:w-full ${
                   seleccionada
                     ? "border-screenora-purple/60 bg-screenora-purple/10 shadow-lg shadow-screenora-purple/5"
-                    : "border-white/5 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.06]"
+                    : "border-white/5 bg-white/2 hover:border-white/15 hover:bg-white/6"
                 }`}
               >
                 <div className="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-[#171c35]">

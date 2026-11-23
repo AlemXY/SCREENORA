@@ -17,7 +17,7 @@ export const ProductosCategoria = ({ idCategoria }: ProductosProps) => {
             key={index}
             className="overflow-hidden rounded-2xl border border-white/10 bg-[#10152b]"
           >
-            <div className="aspect-[2/3] animate-pulse bg-white/10" />
+            <div className="aspect-2/3 animate-pulse bg-white/10" />
             <div className="space-y-3 p-4">
               <div className="h-5 w-3/4 animate-pulse rounded bg-white/10" />
               <div className="h-4 w-1/2 animate-pulse rounded bg-white/10" />
@@ -51,7 +51,7 @@ export const ProductosCategoria = ({ idCategoria }: ProductosProps) => {
 
   if (!hasProductos) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-16 text-center">
+      <div className="rounded-2xl border border-white/10 bg-white/3 px-6 py-16 text-center">
         <p className="text-lg font-bold text-white">
           No hay contenidos disponibles
         </p>
@@ -73,7 +73,7 @@ export const ProductosCategoria = ({ idCategoria }: ProductosProps) => {
             key={producto._id}
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-1.5 hover:border-screenora-purple/50 hover:shadow-xl hover:shadow-screenora-purple/10"
           >
-            <figure className="relative aspect-[2/3] overflow-hidden bg-[#171c35]">
+            <figure className="relative aspect-2/3 overflow-hidden bg-[#171c35]">
               <img
                 src={imagenURL}
                 alt={`Póster de ${producto.titulo}`}

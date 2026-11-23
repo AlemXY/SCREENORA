@@ -418,9 +418,9 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
             abrirPanel(true);
           }
         }}
-        className="group w-[290px] shrink-0 cursor-pointer outline-offset-4 focus-visible:outline-2 focus-visible:outline-screenora-violet"
+        className="group w-72.5 shrink-0 cursor-pointer outline-offset-4 focus-visible:outline-2 focus-visible:outline-screenora-violet"
       >
-        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:border-screenora-purple/50 group-hover:shadow-xl group-hover:shadow-screenora-purple/10">
+        <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#10152b] shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:border-screenora-purple/50 group-hover:shadow-xl group-hover:shadow-screenora-purple/10">
           <img
             src={pelicula.imagen}
             alt={`Póster de ${pelicula.titulo}`}
@@ -476,7 +476,7 @@ const TarjetaTendencia = ({ pelicula }: { pelicula: Pelicula }) => {
           <div
             onMouseEnter={cancelarCierre}
             onMouseLeave={cerrarPanel}
-            className={`fixed z-[999] overflow-y-auto rounded-2xl border border-white/10 bg-[#10152b] shadow-2xl shadow-black/60 transition-all duration-300 ease-out ${
+            className={`fixed z-999 overflow-y-auto rounded-2xl border border-white/10 bg-[#10152b] shadow-2xl shadow-black/60 transition-all duration-300 ease-out ${
               estado.visible
                 ? "scale-100 opacity-100"
                 : "pointer-events-none scale-95 opacity-0"
