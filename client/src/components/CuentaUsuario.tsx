@@ -1,5 +1,6 @@
 import { useReducer, type FormEvent, type ReactNode } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { createPortal } from "react-dom";
 
 import {
   registrarUsuario,
@@ -245,264 +246,274 @@ const CuentaUsuario = ({ icon }: Propiedades) => {
         )}
       </button>
 
-      {cuenta.abierto && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center px-4 py-6">
-          <button
-            type="button"
-            aria-label="Cerrar ventana de cuenta"
-            onClick={cerrarVentana}
-            className="absolute inset-0 cursor-pointer bg-black/80 backdrop-blur-sm"
-          />
+      {cuenta.abierto &&
+        createPortal(
+          <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto px-4 py-6">
+            <button
+              type="button"
+              aria-label="Cerrar ventana de cuenta"
+              onClick={cerrarVentana}
+              className="absolute inset-0 cursor-pointer bg-black/80 backdrop-blur-sm"
+            />
 
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="screenora-cuenta-titulo"
-            onKeyDown={(evento) => {
-              if (evento.key === "Escape") cerrarVentana();
-            }}
-            className="relative z-10 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[#11152e] p-6 shadow-2xl sm:p-8"
-          >
-            <div className="mb-6 flex items-start justify-between gap-4">
-              <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-screenora-violet">
-                  SCREENORA
-                </p>
-
-                <h2
-                  id="screenora-cuenta-titulo"
-                  className="text-2xl font-extrabold text-white"
-                >
-                  {cuenta.usuario
-                    ? "Mi cuenta"
-                    : cuenta.modo === "registro"
-                      ? "Crear cuenta"
-                      : "Bienvenido de nuevo"}
-                </h2>
-
-                <p className="mt-2 text-sm text-white/55">
-                  {cuenta.usuario
-                    ? "Tu sesión está activa."
-                    : "Accede a tu cuenta de SCREENORA."}
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={cerrarVentana}
-                disabled={ocupado}
-                aria-label="Cerrar"
-                className="cursor-pointer rounded-lg px-3 py-1 text-2xl text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-50"
-              >
-                ×
-              </button>
-            </div>
-
-            {cuenta.usuario ? (
-              <div className="space-y-5">
-                <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-sm text-white/50">Sesión iniciada como</p>
-
-                  <p className="mt-2 text-xl font-bold text-white">
-                    {cuenta.usuario.nombre}
+            <section
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="screenora-cuenta-titulo"
+              onKeyDown={(evento) => {
+                if (evento.key === "Escape") cerrarVentana();
+              }}
+              className="relative z-10 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[#11152e] p-6 shadow-2xl sm:p-8"
+            >
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-xs font-bold uppercase tracking-widest text-screenora-violet">
+                    SCREENORA
                   </p>
 
-                  <p className="mt-1 text-sm text-white/60">
-                    {cuenta.usuario.correo}
-                  </p>
+                  <h2
+                    id="screenora-cuenta-titulo"
+                    className="text-2xl font-extrabold text-white"
+                  >
+                    {cuenta.usuario
+                      ? "Mi cuenta"
+                      : cuenta.modo === "registro"
+                        ? "Crear cuenta"
+                        : "Bienvenido de nuevo"}
+                  </h2>
 
-                  <p className="mt-3 text-xs font-semibold text-green-300">
-                    Cuenta verificada
+                  <p className="mt-2 text-sm text-white/55">
+                    {cuenta.usuario
+                      ? "Tu sesión está activa."
+                      : "Accede a tu cuenta de SCREENORA."}
                   </p>
                 </div>
 
                 <button
                   type="button"
-                  onClick={() => dispatch({ type: "SALIR" })}
-                  className="w-full cursor-pointer rounded-xl border border-red-400/30 px-5 py-3 font-bold text-red-300 transition-colors hover:bg-red-400/10"
+                  onClick={cerrarVentana}
+                  disabled={ocupado}
+                  aria-label="Cerrar"
+                  className="cursor-pointer rounded-lg px-3 py-1 text-2xl text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-50"
                 >
-                  Cerrar sesión
+                  ×
                 </button>
-
-                {cuenta.token && cuenta.usuario && (
-                  <MiLista token={cuenta.token} usuarioId={cuenta.usuario.id} />
-                )}
               </div>
-            ) : (
-              <>
-                <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl bg-white/5 p-1">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({ type: "CAMBIAR_MODO", modo: "login" })
-                    }
-                    disabled={ocupado}
-                    className={`cursor-pointer rounded-lg py-3 text-sm font-bold transition-colors ${
-                      cuenta.modo === "login"
-                        ? "bg-screenora-purple text-white"
-                        : "text-white/60 hover:text-white"
-                    }`}
-                  >
-                    Iniciar sesión
-                  </button>
+
+              {cuenta.usuario ? (
+                <div className="space-y-5">
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-sm text-white/50">
+                      Sesión iniciada como
+                    </p>
+
+                    <p className="mt-2 text-xl font-bold text-white">
+                      {cuenta.usuario.nombre}
+                    </p>
+
+                    <p className="mt-1 text-sm text-white/60">
+                      {cuenta.usuario.correo}
+                    </p>
+
+                    <p className="mt-3 text-xs font-semibold text-green-300">
+                      Cuenta verificada
+                    </p>
+                  </div>
 
                   <button
                     type="button"
-                    onClick={() =>
-                      dispatch({ type: "CAMBIAR_MODO", modo: "registro" })
-                    }
-                    disabled={ocupado}
-                    className={`cursor-pointer rounded-lg py-3 text-sm font-bold transition-colors ${
-                      cuenta.modo === "registro"
-                        ? "bg-screenora-purple text-white"
-                        : "text-white/60 hover:text-white"
-                    }`}
+                    onClick={() => dispatch({ type: "SALIR" })}
+                    className="w-full cursor-pointer rounded-xl border border-red-400/30 px-5 py-3 font-bold text-red-300 transition-colors hover:bg-red-400/10"
                   >
-                    Registrarse
+                    Cerrar sesión
                   </button>
+
+                  {cuenta.token && cuenta.usuario && (
+                    <MiLista
+                      token={cuenta.token}
+                      usuarioId={cuenta.usuario.id}
+                    />
+                  )}
                 </div>
+              ) : (
+                <>
+                  <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl bg-white/5 p-1">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        dispatch({ type: "CAMBIAR_MODO", modo: "login" })
+                      }
+                      disabled={ocupado}
+                      className={`cursor-pointer rounded-lg py-3 text-sm font-bold transition-colors ${
+                        cuenta.modo === "login"
+                          ? "bg-screenora-purple text-white"
+                          : "text-white/60 hover:text-white"
+                      }`}
+                    >
+                      Iniciar sesión
+                    </button>
 
-                <form onSubmit={enviarFormulario} className="space-y-4">
-                  {cuenta.modo === "registro" && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        dispatch({ type: "CAMBIAR_MODO", modo: "registro" })
+                      }
+                      disabled={ocupado}
+                      className={`cursor-pointer rounded-lg py-3 text-sm font-bold transition-colors ${
+                        cuenta.modo === "registro"
+                          ? "bg-screenora-purple text-white"
+                          : "text-white/60 hover:text-white"
+                      }`}
+                    >
+                      Registrarse
+                    </button>
+                  </div>
+
+                  <form onSubmit={enviarFormulario} className="space-y-4">
+                    {cuenta.modo === "registro" && (
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="usuario-nombre"
+                          className="text-sm font-semibold text-white/80"
+                        >
+                          Nombre
+                        </label>
+
+                        <input
+                          id="usuario-nombre"
+                          type="text"
+                          required
+                          minLength={2}
+                          maxLength={80}
+                          autoComplete="name"
+                          value={cuenta.nombre}
+                          onChange={(evento) =>
+                            cambiarCampo("nombre", evento.target.value)
+                          }
+                          disabled={ocupado}
+                          placeholder="Tu nombre"
+                          className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
+                        />
+                      </div>
+                    )}
+
                     <div className="space-y-2">
                       <label
-                        htmlFor="usuario-nombre"
+                        htmlFor="usuario-correo"
                         className="text-sm font-semibold text-white/80"
                       >
-                        Nombre
+                        Correo electrónico
                       </label>
 
                       <input
-                        id="usuario-nombre"
-                        type="text"
+                        id="usuario-correo"
+                        type="email"
                         required
-                        minLength={2}
-                        maxLength={80}
-                        autoComplete="name"
-                        value={cuenta.nombre}
+                        maxLength={254}
+                        autoComplete="email"
+                        value={cuenta.correo}
                         onChange={(evento) =>
-                          cambiarCampo("nombre", evento.target.value)
+                          cambiarCampo("correo", evento.target.value)
                         }
                         disabled={ocupado}
-                        placeholder="Tu nombre"
+                        placeholder="correo@ejemplo.com"
                         className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
                       />
                     </div>
-                  )}
 
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="usuario-correo"
-                      className="text-sm font-semibold text-white/80"
-                    >
-                      Correo electrónico
-                    </label>
-
-                    <input
-                      id="usuario-correo"
-                      type="email"
-                      required
-                      maxLength={254}
-                      autoComplete="email"
-                      value={cuenta.correo}
-                      onChange={(evento) =>
-                        cambiarCampo("correo", evento.target.value)
-                      }
-                      disabled={ocupado}
-                      placeholder="correo@ejemplo.com"
-                      className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="usuario-password"
-                      className="text-sm font-semibold text-white/80"
-                    >
-                      Contraseña
-                    </label>
-
-                    <input
-                      id="usuario-password"
-                      type="password"
-                      required
-                      minLength={cuenta.modo === "registro" ? 8 : undefined}
-                      autoComplete={
-                        cuenta.modo === "registro"
-                          ? "new-password"
-                          : "current-password"
-                      }
-                      value={cuenta.password}
-                      onChange={(evento) =>
-                        cambiarCampo("password", evento.target.value)
-                      }
-                      disabled={ocupado}
-                      placeholder="Tu contraseña"
-                      className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
-                    />
-                  </div>
-
-                  {cuenta.modo === "registro" && (
                     <div className="space-y-2">
                       <label
-                        htmlFor="usuario-confirmar"
+                        htmlFor="usuario-password"
                         className="text-sm font-semibold text-white/80"
                       >
-                        Confirmar contraseña
+                        Contraseña
                       </label>
 
                       <input
-                        id="usuario-confirmar"
+                        id="usuario-password"
                         type="password"
                         required
-                        minLength={8}
-                        autoComplete="new-password"
-                        value={cuenta.confirmarPassword}
+                        minLength={cuenta.modo === "registro" ? 8 : undefined}
+                        autoComplete={
+                          cuenta.modo === "registro"
+                            ? "new-password"
+                            : "current-password"
+                        }
+                        value={cuenta.password}
                         onChange={(evento) =>
-                          cambiarCampo("confirmarPassword", evento.target.value)
+                          cambiarCampo("password", evento.target.value)
                         }
                         disabled={ocupado}
-                        placeholder="Repite tu contraseña"
+                        placeholder="Tu contraseña"
                         className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
                       />
                     </div>
-                  )}
 
-                  {cuenta.error && (
-                    <p
-                      role="alert"
-                      className="rounded-lg border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-300"
+                    {cuenta.modo === "registro" && (
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="usuario-confirmar"
+                          className="text-sm font-semibold text-white/80"
+                        >
+                          Confirmar contraseña
+                        </label>
+
+                        <input
+                          id="usuario-confirmar"
+                          type="password"
+                          required
+                          minLength={8}
+                          autoComplete="new-password"
+                          value={cuenta.confirmarPassword}
+                          onChange={(evento) =>
+                            cambiarCampo(
+                              "confirmarPassword",
+                              evento.target.value,
+                            )
+                          }
+                          disabled={ocupado}
+                          placeholder="Repite tu contraseña"
+                          className="h-12 w-full rounded-xl border border-white/15 bg-[#1d2142] px-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-screenora-violet"
+                        />
+                      </div>
+                    )}
+
+                    {cuenta.error && (
+                      <p
+                        role="alert"
+                        className="rounded-lg border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-300"
+                      >
+                        {cuenta.error}
+                      </p>
+                    )}
+
+                    {cuenta.mensaje && (
+                      <p
+                        role="status"
+                        className="rounded-lg border border-green-400/20 bg-green-400/10 p-3 text-sm text-green-300"
+                      >
+                        {cuenta.mensaje}
+                      </p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={ocupado}
+                      className="w-full cursor-pointer rounded-xl bg-linear-to-r from-screenora-purple to-screenora-violet px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      {cuenta.error}
-                    </p>
-                  )}
-
-                  {cuenta.mensaje && (
-                    <p
-                      role="status"
-                      className="rounded-lg border border-green-400/20 bg-green-400/10 p-3 text-sm text-green-300"
-                    >
-                      {cuenta.mensaje}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={ocupado}
-                    className="w-full cursor-pointer rounded-xl bg-linear-to-r from-screenora-purple to-screenora-violet px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    {ocupado
-                      ? "Procesando..."
-                      : cuenta.modo === "registro"
-                        ? "Crear cuenta"
-                        : "Iniciar sesión"}
-                  </button>
-                </form>
-              </>
-            )}
-          </section>
-        </div>
-      )}
+                      {ocupado
+                        ? "Procesando..."
+                        : cuenta.modo === "registro"
+                          ? "Crear cuenta"
+                          : "Iniciar sesión"}
+                    </button>
+                  </form>
+                </>
+              )}
+            </section>
+          </div>,
+          document.body,
+        )}
     </>
   );
 };
