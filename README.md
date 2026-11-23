@@ -252,9 +252,18 @@ Para trabajar localmente, deben permanecer activos el frontend y el backend en s
 
 El repositorio contiene scripts de inicialización en `server/src/scripts` para registrar directores, categorías y productos. Los scripts de categorías y productos deben ejecutarse en el orden previsto por el proyecto: inicializar categorías, actualizar sus nombres definitivos, inicializar directores e inicializar productos.
 
-Los scripts de inicialización comprueban que `MONGODB_DB_NAME` sea `screenora_pa3_desarrollo` antes de modificar datos. No los ejecutes sobre una base de datos con información que no quieras actualizar.
+Los scripts de inicialización comprueban que `MONGODB_DB_NAME` sea `screenora_pa3_desarrollo` antes de modificar datos. Ejecútalos desde la carpeta `server`, con el archivo `.env` configurado y en este orden:
 
-La cuenta administrativa debe estar configurada previamente en la colección `administradores`. El proyecto incluye el script `server/src/scripts/crearAdministrador.ts` para la preparación de esa cuenta.
+```bash
+npx tsx src/scripts/inicializarCategorias.ts
+npx tsx src/scripts/actualizarCategorias.ts
+npx tsx src/scripts/inicializarDirectores.ts
+npx tsx src/scripts/inicializarProductos.ts
+```
+
+Estos scripts crean o actualizan registros de las colecciones correspondientes. No los ejecutes sobre una base de datos con información que no quieras modificar.
+
+La cuenta administrativa debe estar configurada previamente en la colección `administradores`. El proyecto incluye el script `src/scripts/crearAdministrador.ts` para preparar esa cuenta.
 
 ## 10. Endpoints de la API
 
@@ -397,5 +406,5 @@ Render proporciona la variable `PORT` para el servicio desplegado.
 
 **Proyecto:** SCREENORA  
 **Evaluación:** Producto Académico N.º 4 (PA4)  
-**Asignatura:** Programación Web Avanzada  
+**Asignatura:** Programación Web  
 **Stack:** React, TypeScript, Tailwind CSS, Node.js, Express y MongoDB Atlas.
